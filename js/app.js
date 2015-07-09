@@ -12,37 +12,33 @@ $(document).ready(function(){
   		$(".overlay").fadeOut(1000);
   	});
 
+    //newGAME();
 
 });
 
 
-/*
-//NEW GAME
+//function newGAME(){
 
-1- computerRandom 1-100
-2- input userNumber id=userGuess button id=guessButton
-  2.1-input userName guessArray
-3- check computerRandom vs userNumber
-  3.1- check computerRandom vs userNumber proximity
 
-*/
 //////// DECLARE GLOBAL VARIABLES
-
-var userNumGuess;
+var userNumGuess = 0;
 var guessArray = [];
-var numberOfGuesses;
-var computerNumber;
-var difference;
-//////// COMPUTER GENERATE RANDOM NUMBER
+var numberOfGuesses = 0;
+var computerNumber = 0;
+var difference = 0;
+var ul = 0;
+var li = 0;
 
+
+//////// COMPUTER GENERATE RANDOM NUMBER
 function computerRandom() {
   computerNumber = Math.floor(Math.random() * 100 + 1);
   console.log(computerNumber);
 }
 computerRandom();
 
-//////// GETTING INPUT + CHECK BUTTON IF isNaN + ADD VALUE TO guessArray
-    
+
+//////// GETTING INPUT + CHECK BUTTON IF isNaN + ADD VALUE TO guessArray    
 function guessButtonOnClick(){
   userNumGuess = document.getElementById('userGuess').value;
   userNumGuess = parseInt(userNumGuess);
@@ -52,16 +48,38 @@ function guessButtonOnClick(){
     userNumGuess = 0;
   }
   console.log("The user guessed last: " + userNumGuess);
+
+
   /////// TRYING TO SEPARATE NULL GUESSES FROM THE CORRECTONES
   //Object.keys(guessArray).slice('0');
   //delete guessArray[0];
   guessArray.push(userNumGuess);
   console.log("The user array: " + guessArray);
   numberOfGuesses = Object.keys(guessArray).length;
+  
+  //REDUCE 1 WHEN userNumGuess IS EQUAL TO 0 OR INVALID
+  //If empty guess, doesnt work
+  if ( userNumGuess === 0) {numberOfGuesses -= 1;}
+
   console.log("Number of guesses " + numberOfGuesses)
+
+
+  //ADD LI TO UL WITH userNumGuess // ul id="guessList"
+  function liGuessList(){
+    if (userNumGuess !== 0) {
+      var ul = document.getElementById('guessList');
+      var li = document.createElement('li');
+      li.appendChild(document.createTextNode(userNumGuess));
+      ul.appendChild(li);
+    }
+  }
+  liGuessList();
+  
+
 
   // FUNCTIONS TO CHECK VALUES
   function checkValues(){
+
 
     // FUNCTIONS WHICH VALUE IS BIGGER
     function userBigger(){      
@@ -70,6 +88,7 @@ function guessButtonOnClick(){
     function compBigger(){
       difference = Math.abs(computerNumber - userNumGuess)
     }
+
     // CONDITIONALS COMPARISON VALUES
     if (userNumGuess === computerNumber) {
       alert("EUREKA!")
@@ -90,14 +109,14 @@ function guessButtonOnClick(){
       else if (difference >= 90) {console.log('90 or more than 90');}
   }
   
+  //
 
   checkValues();
+  document.getElementById("feedback").textContent= "Attempts made: " + numberOfGuesses;
 
 }
+//}
 
-/////// COUNT NUMBER OF USER GUESSES
-
-/////// CHECK userNumGuess vs computerNumber
 
 
 
