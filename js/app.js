@@ -86,6 +86,9 @@ function newGAME(){
             if (userNumGuess === computerNumber) {
               alert("EUREKA!")
               //STOP GAME --> input and button stop working + change LABEL
+              //userGuess and guessButton
+              document.getElementById('userGuess').readOnly = true;
+              document.getElementById('guessButton').disabled = true;
             }
             if (userNumGuess > computerNumber) { userBigger();}
             if (computerNumber > userNumGuess) { compBigger();}
